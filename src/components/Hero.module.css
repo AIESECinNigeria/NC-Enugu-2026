@@ -1,0 +1,8 @@
+.container {
+    background:linear-gradient( to top, #000, #00000000), url('/images/bg_one.png') ;
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+/*   bg-linear-to-t from-cyan-500 to-blue-500 w-full min-h-screen items-center flex justify-center px-6 */
