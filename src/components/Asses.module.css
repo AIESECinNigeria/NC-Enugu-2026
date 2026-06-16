@@ -1,0 +1,6 @@
+.container2 {
+    background:linear-gradient( to top, #000, #00000000), url('/images/bg_two.png') ;
+    background-position: center;
+    background-size: cover;
+    height: 100dvh;
+}

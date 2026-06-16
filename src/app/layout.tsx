@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Courier_Prime } from "next/font/google";
+import PunkKid from "next/font/local"
+import TungstenCondBook from "next/font/local"
 import "./globals.css";
 
 const geistSans = Geist({
@@ -19,6 +21,28 @@ const courierPrime = Courier_Prime({
   weight: "400"
 });
 
+const punkKid = PunkKid({
+  src: [
+    {
+      path: '../../public/fonts/punkKid.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-punk',
+})
+
+const TungstenCBook = TungstenCondBook({
+  src: [
+    {
+      path: '../../public/fonts/TungstenCondBook.otf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-tungstenC',
+})
+
 export const metadata: Metadata = {
   title: "NC NUGS",
   description: "NC NUGS website",
@@ -32,7 +56,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${courierPrime.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${courierPrime.variable} ${punkKid.variable} ${TungstenCBook.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
