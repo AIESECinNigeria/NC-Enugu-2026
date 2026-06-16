@@ -79,12 +79,7 @@ export default function Hero() {
               <div className='text-[#1A1A1A] text-[24px] mt-[40px] font-courier italic max-w-[700px] '>But since you are here - the Coal City has something worth stealing. The crew is almost complete. One question.</div>
               <div className='text-[#1A1A1A] text-[24px] mt-[20px] font-courier font-bold '>Can you be trusted?</div>
               {/* <button></button> */}
-              <Link className='bg-[#AB1212] mt-[40px] w-[350px] h-[55px] flex justify-center items-center text-[#D2C3AA] text-[28px] font-tungstenC cursor-pointer '
-                href={{
-                  pathname: '/about',
-                  query: { name: 'test' },
-                }}
-              >
+              <Link className='bg-[#AB1212] mt-[40px] w-[350px] h-[55px] flex justify-center items-center text-[#D2C3AA] text-[28px] font-tungstenC cursor-pointer ' href="/dashboard">
                 [ Begin Assessment ]
               </Link>
             </div>

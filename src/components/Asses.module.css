@@ -1,6 +1,19 @@
 .container2 {
-    background:linear-gradient( to top, #000, #00000000), url('/images/bg_two.png') ;
+    background:linear-gradient( to top, #000, #00000000), url('/images/bg_one.png') ;
     background-position: center;
     background-size: cover;
     height: 100dvh;
+}
+.paperOne {
+    position: relative; 
+    /* display: block; */
+}
+.paperTwo {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+
+    display: flex;
+    flex-direction: column;
 }
