@@ -139,7 +139,14 @@ export default function Assesment() {
                     />
                 </div>
                 <div className={`${styles.paperTwo} w-full h-[700px]`}>
-                    <p className={`${styles.crew} bg-[#1A1A1A] w-[520px] mt-[38px] ml-[147px] p-[5px] text-white font-courier text-[20px] `}>CREW ASSESSMENT / CLASSIFICATION PROTOCOL</p>
+                  <div className={`${styles.crew} flex items-center mt-[38px] mx-[147px] justify-between `}>
+                    <p className={`${styles.crewkid1} bg-[#1A1A1A] w-[520px] p-[5px] text-white font-courier text-[20px] `}>CREW ASSESSMENT / CLASSIFICATION PROTOCOL</p>
+                    {/* Progress */}
+                    <div className={`${styles.crewkid2} text-[#1a1a1a] text-[20px] flex flex-col items-center font-courier italic `}>
+                      {(currentStep + 1)}/7
+                      <Image className={`${styles.crewLine} `} src={'/images/underLine.png'} alt='line' width={45} height={9} />
+                    </div>
+                  </div>
                     <div className={`${styles.every} mt-[20px] ml-[177px] text-[#1A1A1A] text-[19px] font-courier italic max-w-[700px] `}>Every operative has a role. This assessment determines yours. Answer honestly. The operation depends on it.</div>
                     <form className={`${styles.formm} self-center flex flex-col items-center w-[900px] `} onSubmit={handleSubmit}>
                         <h2 className={`${styles.questionL} text-[#1A1A1A] w-[800px] text-[24px] text-left mt-[20px] ml-[30px] font-courier font-bold `}>{activeQuestion.question}</h2>
