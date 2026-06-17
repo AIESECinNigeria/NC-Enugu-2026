@@ -108,17 +108,53 @@ export default function Assesment() {
             }
         };
         
+        // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        //     e.preventDefault();
+
+        //     try {
+        //         console.log("Final Answers Submitted:", answers);
+        //         // const response = await fetch('/api/submit', { method: 'POST', ... });
+
+        //         router.push('/Classified');
+        //     } catch (error) {
+        //         console.error('Submission failed', error);
+        //     }
+        // };
+
         const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-            e.preventDefault();
+          e.preventDefault();
 
-            try {
-                console.log("Final Answers Submitted:", answers);
-                // const response = await fetch('/api/submit', { method: 'POST', ... });
+          try {
+            const requestBody = QUESTIONS.reduce((accumulator, q) => {
+                const selectedValue = answers[q.id];
+                const matchedOption = q.options.find((opt) => opt.value === selectedValue);
 
-                router.push('/registration');
-            } catch (error) {
-                console.error('Submission failed', error);
+                accumulator[q.question] = matchedOption ? matchedOption.label : "";
+                return accumulator;
+            }, {} as Record<string, string>);
+
+            console.log("Transformed Dictionary Payload:", requestBody);
+
+            const response = await fetch('https://ain-backend.fly.dev/api/nc-enugu-quiz', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            if (!response.ok) {
+                const errorDetails = await response.json().catch(() => null);
+                console.error("Server Error Details:", errorDetails);
+                throw new Error(`Server returned code: ${response.status}`);
             }
+
+            // Forward to registration
+            router.push('/registration');
+
+        } catch (error) {
+            console.error('Submission failed', error);
+        }
         };
 
     return(
