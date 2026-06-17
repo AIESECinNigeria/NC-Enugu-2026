@@ -1,0 +1,119 @@
+.container {
+    background:linear-gradient( to top, #000, #00000000), url('/images/bg_one.png') ;
+    background-position: center;
+    background-size: cover;
+    height: 100dvh;
+}
+
+.paper {
+    position: relative;
+}
+.paperOne {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+}
+.paperTwo {
+    position: relative; 
+    display: block;
+}
+.svgg {
+    filter: drop-shadow(0px 13px 1px rgba(0, 0, 0, 0.6));
+}
+.mobile {
+    display: none;
+}
+
+/*   bg-linear-to-t from-cyan-500 to-blue-500 w-full min-h-screen items-center flex justify-center px-6 */
+
+@media (max-width: 450px) {
+    .container {
+        padding: 20px;
+    }
+    .contb {
+        max-width: 500px;
+    }
+    .desktop {
+        display: none;
+    }
+    .mobile {
+        display: block;
+    }
+    .paper {
+        position: relative;
+        width: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    /* .paperOne {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    } */
+    .paperTwo {
+        position: relative; 
+        display: flex;
+        justify-content: center;
+        width: 300px;
+        /* align-items: center; */
+    }
+    .case {
+        font-size: 12px;
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+    .page {
+        font-size: 10px;
+        width: 200px;
+        margin-left: 50px;
+    }
+    .culpText {
+        margin: 10px 60px;
+    }
+    .culprit {
+        font-size: 52px;
+    }
+    .culpritA {
+        left: 80px;
+    }
+    .culpritC {
+        top: 35px;
+        left: 80px;
+        width: 200px;
+        height: 30px;
+    }
+    .culpritB {
+        left: 80px;
+    }
+    .coal {
+        font-size: 16px;
+    }
+    .butt {
+        width: 200px;
+        font-size: 24px;
+    }
+    .phot1 {
+        width: 250px;
+        height: 250px;
+        top: 700;
+        right: 10;
+    }
+    .mPin {
+        width: 50px;
+        height: 50px;
+    }
+    .mPin1 {
+        top: 110;
+        left: 300;
+    }
+    .mPin2 {
+        top: 400;
+        left: 35;
+    }
+    .mPin3 {
+        top: 750;
+        right: 60;
+    }
+}
