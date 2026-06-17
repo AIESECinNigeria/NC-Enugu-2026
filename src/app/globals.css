@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Courier Prime';
+  src: url('../Fonts/Courier Prime/Courier Prime Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Courier Prime';
+  src: url('../Fonts/Courier Prime/Courier Prime Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Tungsten';
+  src: url('../Fonts/tungsten-font-family/Tungsten-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@layer utilities {
+  .placeholder-tungsten::placeholder {
+    font-family: 'Tungsten', sans-serif;
+    font-size: 16px;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -13,6 +41,8 @@
   --font-courier: var(--font-courier);
   --font-punk: var(--font-punk);
   --font-tungstenC: var(--font-tungstenC);
+  --font-courier: 'Courier Prime', monospace;
+  --font-tungsten: 'Tungsten', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
