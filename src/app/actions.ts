@@ -2,6 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
+import { assignGroup } from '@/lib/groupAssignment'
 
 export async function registerAgent(_prevState: unknown, formData: FormData) {
   const data = {
@@ -55,5 +56,48 @@ export async function registerAgentStep2(_prevState: unknown, formData: FormData
 }
 
 export async function registerAgentStep3(_prevState: unknown, formData: FormData) {
+  const cookieStore = await cookies()
+
+  const step1 = JSON.parse(cookieStore.get('step1_data')?.value || '{}')
+  const step2 = JSON.parse(cookieStore.get('step2_data')?.value || '{}')
+
+  const step3Data = {
+    allergies:        formData.get('allergies')        as string,
+    countermeasures:  formData.get('countermeasures')  as string,
+    coEd:             formData.get('coEd')             as string,
+    emergencyContact: formData.get('purpose')          as string,
+    relationship:     formData.get('notes')            as string,
+    directLine:       formData.get('directLine')       as string,
+  }
+
+  // Assign to an LC-diverse group of 6
+  const groupId = assignGroup(step1.codename ?? 'unknown', step2.lc ?? 'unknown')
+
+  const fullPayload = { ...step1, ...step2, ...step3Data, groupId }
+
+  // Submit to backend (fire-and-forget; don't block redirect on backend failure)
+  try {
+    await fetch('https://ain-backend.fly.dev/api/nc-en/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(fullPayload),
+    })
+  } catch (err) {
+    console.error('Backend submission error:', err)
+  }
+
+  // Store ID-relevant data in a readable cookie for the ID page
+  cookieStore.set('agent_profile', JSON.stringify({
+    codename: step1.codename,
+    lc:       step2.lc,
+    role:     step2.role,
+    groupId,
+  }), {
+    maxAge:   3600,
+    httpOnly: false,
+    sameSite: 'lax',
+    path:     '/',
+  })
+
   redirect('/confirmation')
 }

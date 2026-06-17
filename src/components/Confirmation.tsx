@@ -1,8 +1,10 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 export default function Confirmation() {
+  const router = useRouter()
   return (
     <section
       className="h-screen flex items-center justify-center relative"
@@ -34,12 +36,13 @@ export default function Confirmation() {
             </p>
           </div>
           <button
+            onClick={() => router.push('/agent-id')}
             style={{
               fontFamily: "'Tungsten Condensed', sans-serif",
               fontWeight: 400,
               backgroundColor: '#AB1212',
             }}
-            className="absolute bottom-6 left-8 z-10 text-white text-2xl tracking-widest px-8 py-3"
+            className="absolute bottom-6 left-8 z-10 text-white text-2xl tracking-widest px-8 py-3 cursor-pointer"
           >
             DOWNLOAD ID (CLASSIFIED)
           </button>

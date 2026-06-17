@@ -121,6 +121,26 @@ export default function Assesment() {
         //     }
         // };
 
+        const CREW_TYPES: Record<string, { name: string; clearance: string }> = {
+          opt1:         { name: 'THE SPECIALIST', clearance: 'LEVEL 1' },
+          opt2:         { name: 'THE DRIVER',     clearance: 'LEVEL 2' },
+          opt3:         { name: 'THE CHARMER',    clearance: 'LEVEL 3' },
+          opt4:         { name: 'THE LOOKOUT',    clearance: 'LEVEL 4' },
+          opt1_opt4:    { name: 'THE GHOST',      clearance: 'LEVEL 5' },
+          opt2_opt3:    { name: 'THE WILD CARD',  clearance: 'LEVEL 6' },
+        }
+
+        const deriveCrewType = () => {
+          const tally: Record<string, number> = { opt1: 0, opt2: 0, opt3: 0, opt4: 0 }
+          Object.values(answers).forEach((v) => { if (tally[v] !== undefined) tally[v]++ })
+          const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1])
+          // If there's a clear winner, return it
+          if (sorted[0][1] > sorted[1][1]) return sorted[0][0]
+          // Otherwise return the tied key combo (sorted alphabetically)
+          const tiedKey = [sorted[0][0], sorted[1][0]].sort().join('_')
+          return CREW_TYPES[tiedKey] ? tiedKey : sorted[0][0]
+        }
+
         const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           e.preventDefault();
 
@@ -132,8 +152,6 @@ export default function Assesment() {
                 accumulator[q.question] = matchedOption ? matchedOption.label : "";
                 return accumulator;
             }, {} as Record<string, string>);
-
-            console.log("Transformed Dictionary Payload:", requestBody);
 
             const response = await fetch('https://ain-backend.fly.dev/api/nc-enugu-quiz', {
                 method: 'POST',
@@ -148,6 +166,11 @@ export default function Assesment() {
                 console.error("Server Error Details:", errorDetails);
                 throw new Error(`Server returned code: ${response.status}`);
             }
+
+            // Derive crew type from answers and persist for ID generation
+            const topAnswer = deriveCrewType()
+            const crew = CREW_TYPES[topAnswer]
+            document.cookie = `quiz_result=${encodeURIComponent(JSON.stringify(crew))}; path=/; max-age=3600; samesite=lax`
 
             router.push('/pre-registration');
 

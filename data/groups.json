@@ -1,0 +1,15 @@
+{
+  "members": [
+    {
+      "codename": "Alawa Augustine",
+      "lc": "Calabar",
+      "groupId": 1
+    },
+    {
+      "codename": "Alawa Pope",
+      "lc": "Calabar",
+      "groupId": 2
+    }
+  ],
+  "nextGroupId": 3
+}
