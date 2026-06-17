@@ -75,15 +75,21 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
 
   const fullPayload = { ...step1, ...step2, ...step3Data, groupId }
 
-  // Submit to backend (fire-and-forget; don't block redirect on backend failure)
+  let res: Response
   try {
-    await fetch('https://ain-backend.fly.dev/api/nc-en/register', {
+    res = await fetch('https://ain-backend.fly.dev/api/nc-en/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(fullPayload),
     })
-  } catch (err) {
-    console.error('Backend submission error:', err)
+  } catch {
+    return { message: 'Connection to headquarters failed. Check your signal and try again.', success: false }
+  }
+
+  if (!res.ok) {
+    const detail = await res.text().catch(() => '')
+    console.error('Backend rejected registration:', res.status, detail)
+    return { message: 'Headquarters rejected the dossier. Try again or contact your handler.', success: false }
   }
 
   // Store ID-relevant data in a readable cookie for the ID page
