@@ -112,7 +112,7 @@ export default function RegistrationStep3() {
               <label className="block text-lg font-courier font-bold text-[#1A1A1A] mb-1">
                 Are you cleared for co-ed quarters?
               </label>
-              <input type="hidden" name="firstConference" value={selectedConf} />
+              <input type="hidden" name="coEd" value={selectedConf} />
               <div ref={confRef} className="relative w-125">
                 <button type="button" onClick={() => setConfOpen((o) => !o)} className={dropdownClass}>
                   <span className={selectedConf ? 'text-[#1A1A1A]' : 'text-[#1A1A1A]/40'}>
