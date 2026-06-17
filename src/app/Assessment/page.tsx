@@ -115,7 +115,7 @@ export default function Assesment() {
                 console.log("Final Answers Submitted:", answers);
                 // const response = await fetch('/api/submit', { method: 'POST', ... });
 
-                router.push('/Classified');
+                router.push('/registration');
             } catch (error) {
                 console.error('Submission failed', error);
             }

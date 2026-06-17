@@ -201,7 +201,7 @@ export default function RegistrationStep2() {
             <div className="flex gap-3">
               <button
                 type="button"
-                onClick={() => router.push('/')}
+                onClick={() => router.push('/registration')}
                 className="px-5 py-3 border border-[#1A1A1A]/40 text-[#1A1A1A] flex items-center justify-center hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
               >
                 <GrPrevious size={18} />
