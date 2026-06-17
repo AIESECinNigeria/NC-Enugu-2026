@@ -149,8 +149,7 @@ export default function Assesment() {
                 throw new Error(`Server returned code: ${response.status}`);
             }
 
-            // Forward to registration
-            router.push('/registration');
+            router.push('/pre-registration');
 
         } catch (error) {
             console.error('Submission failed', error);

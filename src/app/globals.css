@@ -21,6 +21,27 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Punk Kid';
+  src: url('../Fonts/Punk Kid/punk kid.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Tungsten Condensed';
+  src: url('../Fonts/tungsten-font-family/TungstenCond-Book.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Tungsten Condensed';
+  src: url('../Fonts/tungsten-font-family/TungstenCond-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
 @layer utilities {
   .placeholder-tungsten::placeholder {
     font-family: 'Tungsten', sans-serif;
