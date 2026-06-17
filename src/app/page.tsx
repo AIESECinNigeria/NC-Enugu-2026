@@ -1,7 +1,5 @@
-import Hero from "@/components/Hero";
-import AssesQuestions from "@/components/AssesQuestions";
-import Assesment from '@/components/Assesment'
+import Hero from "@/components/Hero/Hero";
 
 export default function Home() {
-  return <AssesQuestions />;
+  return <Hero />;
 }
