@@ -103,7 +103,7 @@ export default function Hero() {
               <div className={`${styles.coal} text-[#1A1A1A] text-[24px] mt-[20px] font-courier font-bold `}>Can you be trusted?</div>
               {/* <button></button> */}
               <Link className={`${styles.butt} bg-[#AB1212] mt-[40px] w-[350px] h-[55px] flex justify-center items-center text-[#D2C3AA] text-[28px] font-tungstenC cursor-pointer `} href="/Assessment">
-                [ B e g i n &nbsp; A s s e s s m e n t ]
+                [ B E G I N &nbsp; A S S E S S M E N  T ]
               </Link>
             </div>
           </div>

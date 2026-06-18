@@ -1,5 +1,6 @@
 .container {
-    background:linear-gradient( to top, #000, #00000000), url('/images/bg_one.png') ;
+    background:linear-gradient( to top, #000, #00000000), linear-gradient( to left, #000, #00000000, #00000000, #00000000), url('/images/bg_one.png') ;
+    background-color: #000;
     background-position: center;
     background-size: cover;
     height: 100dvh;
