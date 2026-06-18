@@ -39,7 +39,12 @@
       "codename": "test",
       "lc": "Calabar",
       "groupId": 3
+    },
+    {
+      "codename": "tes",
+      "lc": "Calabar",
+      "groupId": 4
     }
   ],
-  "nextGroupId": 4
+  "nextGroupId": 5
 }

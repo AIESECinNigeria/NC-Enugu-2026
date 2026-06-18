@@ -1,12 +1,11 @@
 "use client";
 import styles from './Classified.module.css'
-//import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react';
 
 
-export default function Classified() { 
+export default function Classified() {
 
   return (
     <main className={`${styles.container} flex flex-col py-[50px] px-[50px] items-center relative `}>
@@ -29,7 +28,7 @@ export default function Classified() {
               height={650}
             />
           </div>
-          
+
           <div className={`${styles.paperOne} `}>
             <p className={`${styles.page} bg-[#1A1A1A] text-white w-[520px] p-[5px] font-courier text-[20px] `}>STATUS:CLEARED / CLASSIFICATION: CONFIRMED</p>
             <div className={`${styles.culpText} mx-[40px] mt-[10px] flex justify-evenly `}>
@@ -52,17 +51,17 @@ export default function Classified() {
                             height={700}
                         />
                     </div>
-                    
+
                     <div className={`${styles.class} font-punk text-[64px] text-[#CE0000] flex justify-center items-center -rotate-7 absolute top-[40%] right-[55] `}>
                         <div className={`${styles.class2} border-[10px] border-[#CE0000] px-[15px] py-[20px] leading-none `}>C L A S S I F I E D</div>
                     </div>
-                    
+
                 </div>
             </div>
           </div>
         </div>
       </div>
-      
+
     </main>
   );
 }
