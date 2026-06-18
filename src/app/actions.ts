@@ -3,6 +3,7 @@
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
 import { assignGroup } from '@/lib/groupAssignment'
+import { API_BASE_URL } from '@/lib/config'
 
 export async function registerAgent(_prevState: unknown, formData: FormData) {
   const data = {
@@ -60,8 +61,21 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
 
   const step1 = JSON.parse(cookieStore.get('step1_data')?.value || '{}')
   const step2 = JSON.parse(cookieStore.get('step2_data')?.value || '{}')
+  const quizId = cookieStore.get('quiz_id')?.value || ''
 
-  const step3Data = {
+  // Parse crew type from quiz result cookie
+  let crewType = ''
+  try {
+    const raw = cookieStore.get('quiz_result')?.value || ''
+    if (raw) {
+      const parsed = JSON.parse(decodeURIComponent(raw))
+      crewType = parsed.name || ''
+    }
+  } catch {
+    crewType = ''
+  }
+
+  const step3Raw = {
     allergies:        formData.get('allergies')        as string,
     countermeasures:  formData.get('countermeasures')  as string,
     coEd:             formData.get('coEd')             as string,
@@ -70,17 +84,37 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
     directLine:       formData.get('directLine')       as string,
   }
 
+  // Map frontend field names -> backend ConferenceSchema field names
+  const mappedPayload = {
+    name:                         step1.codename                      as string,
+    email:                        step1.email                         as string,
+    date_of_birth:                step1.birthYear                     as string,
+    phone:                        (step1.phone || '')                 as string,
+    lc:                           step2.lc                            as string,
+    year_they_joined:             step1.recruitmentYear               as string,
+    role:                         step2.role                          as string,
+    first_conference:             (step2.firstConference === 'Yes'),
+    expectations:                 (step2.purpose || '')               as string,
+    social_media:                 (step1.instagram || '')             as string,
+    allergies:                    (step3Raw.allergies || '')          as string,
+    allergy_treatment:            (step3Raw.countermeasures || '')    as string,
+    can_stay_with_opposite_sex:   (step3Raw.coEd === 'Yes'),
+    emergency_contact:            (step3Raw.emergencyContact || '')   as string,
+    emergency_contact_relationship: (step3Raw.relationship || '')    as string,
+    instructions:                 (step2.notes || '')                 as string,
+    quiz_id:                      quizId,
+    crew_type:                    crewType,
+  }
+
   // Assign to an LC-diverse group of 6
   const groupId = assignGroup(step1.codename ?? 'unknown', step2.lc ?? 'unknown')
 
-  const fullPayload = { ...step1, ...step2, ...step3Data, groupId }
-
   let res: Response
   try {
-    res = await fetch('https://ain-backend.fly.dev/api/nc-en/register', {
+    res = await fetch(`${API_BASE_URL}/api/nc-en/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(fullPayload),
+      body: JSON.stringify(mappedPayload),
     })
   } catch {
     return { message: 'Connection to headquarters failed. Check your signal and try again.', success: false }
@@ -97,6 +131,7 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
     codename: step1.codename,
     lc:       step2.lc,
     role:     step2.role,
+    crewName: crewType,
     groupId,
   }), {
     maxAge:   3600,

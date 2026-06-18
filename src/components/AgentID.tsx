@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
 const ROLE_CLEARANCE: Record<string, string> = {
   'Team Member':      'CLEARANCE LEVEL 1',
@@ -34,16 +34,23 @@ export default function AgentID({ codename, lc, role, groupId, crewName, clearan
   const roleImage = ROLE_IMAGES[crewName] ?? '/images/thespecialist.png'
   const clearanceLabel = ROLE_CLEARANCE[role] ?? 'CLEARANCE LEVEL 1'
   const cardRef = useRef<HTMLDivElement>(null)
+  const [isDownloading, setIsDownloading] = useState(true)
 
   useEffect(() => {
     const download = async () => {
       if (!cardRef.current) return
-      const html2canvas = (await import('html2canvas')).default
-      const canvas = await html2canvas(cardRef.current, { scale: 2, useCORS: true })
-      const link = document.createElement('a')
-      link.download = `${codename.replace(/\s+/g, '_')}_ID.png`
-      link.href = canvas.toDataURL('image/png')
-      link.click()
+      try {
+        const html2canvas = (await import('html2canvas')).default
+        const canvas = await html2canvas(cardRef.current, { scale: 2, useCORS: true })
+        const link = document.createElement('a')
+        link.download = `${codename.replace(/\s+/g, '_')}_ID.png`
+        link.href = canvas.toDataURL('image/png')
+        link.click()
+      } catch (err) {
+        console.error('Failed to capture ID card:', err)
+      } finally {
+        setIsDownloading(false)
+      }
     }
     // Wait for images to fully render before capturing
     const timer = setTimeout(download, 1500)
@@ -71,7 +78,7 @@ export default function AgentID({ codename, lc, role, groupId, crewName, clearan
             height={700}
             priority
           />
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
             <div className="relative" ref={cardRef}>
               <Image
                 src="/images/idimage.png"
@@ -121,7 +128,31 @@ export default function AgentID({ codename, lc, role, groupId, crewName, clearan
                   RESTRICTED ACCESS • FOR AUTHORIZED USE ONLY
                 </p>
               </div>
+
+              {/* Loading overlay while generating ID */}
+              {isDownloading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-[#FDF5E6]/80" style={{ borderRadius: '24px' }}>
+                  <div className="text-center">
+                    <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 700, fontSize: '18px', color: '#1A1A1A' }}>
+                      DECRYPTING AGENT
+                    </p>
+                    <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 700, fontSize: '18px', color: '#1A1A1A' }}>
+                      DETAILS...
+                    </p>
+                    <div className="mt-3 flex justify-center gap-1">
+                      <span className="w-2 h-2 bg-[#1A1A1A] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <span className="w-2 h-2 bg-[#1A1A1A] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <span className="w-2 h-2 bg-[#1A1A1A] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
+
+            {/* Bottom text — inside the brown background area */}
+            <p className="mt-4 text-center" style={{ fontFamily: "'Courier Prime', monospace", fontStyle: 'italic', fontSize: '16px', color: '#1A1A1A' }}>
+              Show this card to verify your clearance with fellow field agents
+            </p>
           </div>
           <div className="absolute top-0 right-0">
             <Image
@@ -133,9 +164,6 @@ export default function AgentID({ codename, lc, role, groupId, crewName, clearan
               priority
             />
           </div>
-          <p className="absolute -bottom-16 left-0 right-0 text-center" style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 700, fontSize: '25px', color: '#CE0000' }}>
-            Show this card to verify your<br />clearance with fellow field agents
-          </p>
         </div>
       </div>
     </section>

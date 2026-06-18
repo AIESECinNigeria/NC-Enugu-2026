@@ -9,6 +9,31 @@
       "codename": "Alawa Pope",
       "lc": "Calabar",
       "groupId": 2
+    },
+    {
+      "codename": "James Bond",
+      "lc": "Akure",
+      "groupId": 1
+    },
+    {
+      "codename": "James Bond",
+      "lc": "Abuja",
+      "groupId": 2
+    },
+    {
+      "codename": "James Bond",
+      "lc": "Abeokuta",
+      "groupId": 2
+    },
+    {
+      "codename": "James Bond",
+      "lc": "Akure",
+      "groupId": 2
+    },
+    {
+      "codename": "James Bond",
+      "lc": "Abuja",
+      "groupId": 1
     }
   ],
   "nextGroupId": 3
