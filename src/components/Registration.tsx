@@ -2,9 +2,7 @@
 
 import { useActionState, useState, useRef, useEffect } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { registerAgent } from '@/app/actions'
-import { GrPrevious } from 'react-icons/gr'
 import { MdOutlineArrowForwardIos } from 'react-icons/md'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
@@ -17,7 +15,6 @@ const recruitmentYears = Array.from(
 const initialState = { message: '', success: false }
 
 export default function Registration() {
-  const router = useRouter()
   const [state, formAction, pending] = useActionState(registerAgent, initialState)
   const [pickerOpen, setPickerOpen] = useState(false)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
@@ -200,15 +197,7 @@ export default function Registration() {
               <p className="text-sm text-[#1A1A1A] tracking-wide">{state.message}</p>
             )}
 
-            <div className="flex gap-3">
-              <button
-                type="button"
-                onClick={() => router.push('/Assessment')}
-                className="px-5 py-3 border border-[#1A1A1A]/40 text-[#1A1A1A] flex items-center justify-center hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
-              >
-                <GrPrevious size={18} />
-              </button>
-
+            <div className="flex">
               <button
                 type="submit"
                 disabled={pending}
