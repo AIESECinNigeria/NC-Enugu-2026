@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { API_BASE_URL } from '@/lib/config'
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
 
-    const response = await fetch('https://ain-backend.fly.dev/api/nc-en/register', {
+    const response = await fetch(`${API_BASE_URL}/api/nc-en/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

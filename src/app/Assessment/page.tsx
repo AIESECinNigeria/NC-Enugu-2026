@@ -6,7 +6,8 @@ import Link from 'next/link'
 import { useState, useActionState } from 'react'
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIosNew } from "react-icons/md";
-import { useRouter } from 'next/navigation'; 
+import { useRouter } from 'next/navigation';
+import { API_BASE_URL } from '@/lib/config';
 //import { handleCategorySubmit } from './actions'
 
 
@@ -88,6 +89,7 @@ export default function Assesment() {
         const router = useRouter();
         const [currentStep, setCurrentStep] = useState(0);
         const [answers, setAnswers] = useState<Record<string, string>>({});
+        const [submitting, setSubmitting] = useState(false);
         
         const activeQuestion = QUESTIONS[currentStep];
         
@@ -143,6 +145,7 @@ export default function Assesment() {
 
         const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           e.preventDefault();
+          setSubmitting(true);
 
           try {
             const requestBody = QUESTIONS.reduce((accumulator, q) => {
@@ -153,7 +156,7 @@ export default function Assesment() {
                 return accumulator;
             }, {} as Record<string, string>);
 
-            const response = await fetch('https://ain-backend.fly.dev/api/nc-enugu-quiz', {
+            const response = await fetch(`${API_BASE_URL}/api/nc-enugu-quiz`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -167,6 +170,11 @@ export default function Assesment() {
                 throw new Error(`Server returned code: ${response.status}`);
             }
 
+            // Extract quiz_id for linking registration
+            const result = await response.json();
+            const quizId = result.quiz_id;
+            document.cookie = `quiz_id=${quizId}; path=/; max-age=3600; samesite=lax`;
+
             // Derive crew type from answers and persist for ID generation
             const topAnswer = deriveCrewType()
             const crew = CREW_TYPES[topAnswer]
@@ -176,6 +184,7 @@ export default function Assesment() {
 
         } catch (error) {
             console.error('Submission failed', error);
+            setSubmitting(false);
         }
         };
 
@@ -265,10 +274,10 @@ export default function Assesment() {
                         ) : (
                             <button
                             type="submit"
-                            disabled={!answers[activeQuestion.id]}
+                            disabled={!answers[activeQuestion.id] || submitting}
                             className=" flex items-center gap-[5px] px-6 py-2 bg-black text-white text-[24px] font-tungstenC hover:bg-white hover:text-black disabled:bg-black disabled:text-white disabled:cursor-not-allowed "
                             >
-                            Finish <MdArrowForwardIos />
+                            {submitting ? 'Transmitting...' : 'Finish'} {!submitting && <MdArrowForwardIos />}
                             </button>
                         )}
                         </div>
