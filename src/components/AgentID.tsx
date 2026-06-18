@@ -41,19 +41,45 @@ export default function AgentID({ codename, lc, role, groupId, crewName, clearan
       if (!cardRef.current) return
       try {
         const html2canvas = (await import('html2canvas')).default
-        const canvas = await html2canvas(cardRef.current, { scale: 2, useCORS: true })
+        const clonedElement = cardRef.current.cloneNode(true) as HTMLElement
+
+        // Remove the loading overlay
+        const allDivs = clonedElement.querySelectorAll('div')
+        allDivs.forEach(div => {
+          if (div.textContent.includes('DECRYPTING AGENT')) {
+            div.remove()
+          }
+        })
+
+        // Temporarily add to DOM for capture
+        const container = document.createElement('div')
+        container.style.position = 'absolute'
+        container.style.left = '-9999px'
+        container.appendChild(clonedElement)
+        document.body.appendChild(container)
+
+        const canvas = await html2canvas(clonedElement, {
+          scale: 2,
+          logging: false,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#FDF5E6',
+        })
+
+        document.body.removeChild(container)
+
         const link = document.createElement('a')
         link.download = `${codename.replace(/\s+/g, '_')}_ID.png`
         link.href = canvas.toDataURL('image/png')
         link.click()
+        console.log('ID card downloaded successfully')
+        setIsDownloading(false)
       } catch (err) {
         console.error('Failed to capture ID card:', err)
-      } finally {
         setIsDownloading(false)
       }
     }
-    // Wait for images to fully render before capturing
-    const timer = setTimeout(download, 1500)
+    const timer = setTimeout(download, 2000)
     return () => clearTimeout(timer)
   }, [codename])
 

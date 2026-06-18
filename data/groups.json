@@ -34,7 +34,12 @@
       "codename": "James Bond",
       "lc": "Abuja",
       "groupId": 1
+    },
+    {
+      "codename": "test",
+      "lc": "Calabar",
+      "groupId": 3
     }
   ],
-  "nextGroupId": 3
+  "nextGroupId": 4
 }
