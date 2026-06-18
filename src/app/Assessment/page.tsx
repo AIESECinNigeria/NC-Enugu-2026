@@ -239,7 +239,7 @@ export default function Assesment() {
                                 
                                 <label
                                 htmlFor={option.value}
-                                className={`${styles.questionB} block text-left text-[#1a1a1a] w-[760px] text-[28px] p-2 border border-[#1a1a1a] font-tungstenC cursor-pointer transition-all
+                                className={`${styles.questionB} block text-left text-[#1a1a1a] w-[760px] text-[28px] p-2 border border-[#1a1a1a] font-tungstenC tracking-wider cursor-pointer transition-all
                                     hover:bg-black
                                     hover:text-white
                                     peer-checked:bg-black peer-checked:text-white`}
