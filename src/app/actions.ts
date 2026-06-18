@@ -2,7 +2,6 @@
 
 import { redirect } from 'next/navigation'
 import { cookies } from 'next/headers'
-import { assignGroup } from '@/lib/groupAssignment'
 import { API_BASE_URL } from '@/lib/config'
 
 export async function registerAgent(_prevState: unknown, formData: FormData) {
@@ -106,9 +105,6 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
     crew_type:                    crewType,
   }
 
-  // Assign to an LC-diverse group of 6
-  const groupId = assignGroup(step1.codename ?? 'unknown', step2.lc ?? 'unknown')
-
   let res: Response
   try {
     res = await fetch(`${API_BASE_URL}/api/nc-en/register`, {
@@ -126,13 +122,23 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
     return { message: 'Headquarters rejected the dossier. Try again or contact your handler.', success: false }
   }
 
+  let backendRole = ''
+  let backendClearance = ''
+  try {
+    const resData = await res.json() as { delegate?: { role?: string }, clearance?: string }
+    backendRole = resData.delegate?.role || ''
+    backendClearance = resData.clearance || ''
+  } catch {
+    console.error('Failed to parse backend response')
+  }
+
   // Store ID-relevant data in a readable cookie for the ID page
   cookieStore.set('agent_profile', JSON.stringify({
     codename: step1.codename,
     lc:       step2.lc,
-    role:     step2.role,
+    role:     backendRole,
+    clearance: backendClearance,
     crewName: crewType,
-    groupId,
   }), {
     maxAge:   3600,
     httpOnly: false,

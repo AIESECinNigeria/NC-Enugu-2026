@@ -15,7 +15,7 @@
     z-index: 100;
 }
 .paperTwo {
-    position: relative; 
+    position: relative;
     display: block;
 }
 .svgg {
@@ -53,7 +53,7 @@
         align-items: center;
     } */
     .paperTwo {
-        position: relative; 
+        position: relative;
         display: flex;
         justify-content: center;
         width: 300px;
