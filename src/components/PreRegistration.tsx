@@ -144,7 +144,7 @@ export default function PreRegistration() {
                 <button
                   style={{
                     fontFamily: "'Tungsten Condensed', sans-serif",
-                    fontWeight: 600,
+                    fontWeight: 400,
                     backgroundColor: '#AB1212',
                     fontSize: '24px',
                   }}

@@ -17,6 +17,7 @@ export default async function AgentIDPage() {
       role={profile.role}
       crewName={quiz.name}
       clearance={profile.clearance}
+      clearanceLevel={profile.clearanceLevel}
     />
   )
 }

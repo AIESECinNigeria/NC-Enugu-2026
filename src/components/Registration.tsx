@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { registerAgent } from '@/app/actions'
 import { MdOutlineArrowForwardIos } from 'react-icons/md'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
+import CustomCalendar from './CustomCalendar'
 
 const currentYear = new Date().getFullYear()
 const recruitmentYears = Array.from(
@@ -19,6 +20,7 @@ export default function Registration() {
   const [pickerOpen, setPickerOpen] = useState(false)
   const [selectedYear, setSelectedYear] = useState<number | null>(null)
   const pickerRef = useRef<HTMLDivElement>(null)
+  const [selectedBirthDate, setSelectedBirthDate] = useState('')
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -130,16 +132,8 @@ export default function Registration() {
               <label htmlFor="birthYear" className="block text-lg font-courier font-bold text-[#1A1A1A] mb-1">
                 What year were you commissioned?
               </label>
-              <input
-                id="birthYear"
-                type="number"
-                name="birthYear"
-                placeholder="Input birth year"
-                min={1900}
-                max={2026}
-                required
-                className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-              />
+              <input type="hidden" name="birthYear" value={selectedBirthDate} required />
+              <CustomCalendar onDateSelect={setSelectedBirthDate} value={selectedBirthDate} minYear={1900} maxYear={2009} />
             </div>
 
             <div>
@@ -288,16 +282,8 @@ export default function Registration() {
                 <label htmlFor="birthYear" className="block text-base font-courier font-bold text-[#1A1A1A] mb-1">
                   What year were you commissioned?
                 </label>
-                <input
-                  id="birthYear"
-                  type="number"
-                  name="birthYear"
-                  placeholder="Year"
-                  min={1900}
-                  max={2026}
-                  required
-                  className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                />
+                <input type="hidden" name="birthYear" value={selectedBirthDate} required />
+                <CustomCalendar onDateSelect={setSelectedBirthDate} value={selectedBirthDate} minYear={1900} maxYear={2009} />
               </div>
 
               <div>
