@@ -88,4 +88,56 @@
         top: 620;
         right: 30;
     }
+    .buttA {
+        /* Layout & Sizing */
+        width: 200px;
+        margin-top: 0.25rem; /* 4px */
+        margin-left: auto;
+        margin-right: auto;
+        
+        /* Flexbox Alignment */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem; /* 8px */
+
+        /* Box Model & Spacing */
+        padding-top: 0.5rem; /* 8px */
+        padding-bottom: 0.5rem; /* 8px */
+
+        /* Colors & Typography */
+        background-color: #1A1A1A;
+        color: #FFFFFF;
+        font-family: 'tungsten', sans-serif; /* Ensure 'tungsten' is loaded */
+        font-size: 0.875rem; /* 14px */
+
+        /* Animation & Hover */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 300ms */
+    }
+    .buttB {
+        /* Layout & Sizing */
+        width: 50px;
+        margin-top: 0.25rem; /* 4px */
+        margin-left: auto;
+        margin-right: auto;
+        
+        /* Flexbox Alignment */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem; /* 8px */
+
+        /* Box Model & Spacing */
+        padding-top: 0.5rem; /* 8px */
+        padding-bottom: 0.5rem; /* 8px */
+
+        /* Colors & Typography */
+        font-size: 0.875rem; /* 14px */
+
+        /* Animation & Hover */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 300ms */
+    }
+    .buttC {
+        margin-left: 50px;
+    }
 }

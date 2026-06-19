@@ -252,12 +252,12 @@ export default function Assesment() {
                         </div>
 
                         {/* Navigation Actions */}
-                        <div className="flex justify-between mt-[20px] ml-[70px] gap-[20px] self-start ">
+                        <div className={` ${styles.buttC} flex justify-between mt-[20px] ml-[70px] gap-[20px] self-start `}>
                         {currentStep > 0 ? (
-                            <button type="button" onClick={handleBack} className="px-4 py-2 border-[1px] text-black hover:bg-black hover:text-white ">
+                            <button type="button" onClick={handleBack} className={` ${styles.buttB} px-4 py-2 border-[1px] text-black hover:bg-black hover:text-white `}>
                             <MdArrowBackIosNew />
                             </button>
-                        ) : <Link href="/" className="flex items-center px-4 py-2 border-[1px] text-black hover:bg-black hover:text-white ">
+                        ) : <Link href="/" className={` ${styles.buttB} flex items-center px-4 py-2 border-[1px] text-black hover:bg-black hover:text-white `}>
                             <MdArrowBackIosNew />
                             </Link>
                         }
@@ -267,7 +267,7 @@ export default function Assesment() {
                             type="button"
                             onClick={handleNext}
                             disabled={!answers[activeQuestion.id]} // Lock until they choose an option
-                            className={` flex items-center gap-[5px] px-6 py-2 bg-black text-white text-[24px] font-tungstenC hover:bg-white hover:text-black disabled:bg-black disabled:text-white disabled:cursor-not-allowed `}
+                            className={` ${styles.buttA} flex items-center gap-[5px] px-6 py-2 bg-black text-white text-[24px] font-tungstenC hover:bg-white hover:text-black disabled:bg-black disabled:text-white disabled:cursor-not-allowed `}
                             >
                             Next <MdArrowForwardIos />
                             </button>
@@ -275,7 +275,7 @@ export default function Assesment() {
                             <button
                             type="submit"
                             disabled={!answers[activeQuestion.id] || submitting}
-                            className=" flex items-center gap-[5px] px-6 py-2 bg-black text-white text-[24px] font-tungstenC hover:bg-white hover:text-black disabled:bg-black disabled:text-white disabled:cursor-not-allowed "
+                            className={` ${styles.buttA} flex items-center gap-[5px] px-6 py-2 bg-black text-white text-[24px] font-tungstenC hover:bg-white hover:text-black disabled:bg-black disabled:text-white disabled:cursor-not-allowed `}
                             >
                             {submitting ? 'Transmitting...' : 'Finish'} {!submitting && <MdArrowForwardIos />}
                             </button>
