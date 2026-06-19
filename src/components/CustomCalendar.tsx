@@ -24,9 +24,10 @@ export default function CustomCalendar({ onDateSelect, value, minYear = 1900, ma
   const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 
-  const days = Array.from({ length: firstDayOfMonth }, () => null).concat(
-    Array.from({ length: daysInMonth }, (_, i) => i + 1)
-  )
+  const days: (number | null)[] = [
+    ...Array.from({ length: firstDayOfMonth }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1)
+  ]
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
