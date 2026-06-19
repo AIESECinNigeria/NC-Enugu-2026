@@ -137,6 +137,7 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
     codename: step1.codename,
     lc:       step2.lc,
     role:     backendRole,
+    clearanceLevel: step2.role,
     clearance: backendClearance,
     crewName: crewType,
   }), {

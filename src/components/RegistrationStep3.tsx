@@ -126,7 +126,7 @@ export default function RegistrationStep3() {
               <div ref={confRef} className="relative w-125">
                 <button type="button" onClick={() => setConfOpen((o) => !o)} className={dropdownClass}>
                   <span className={selectedConf ? 'text-[#1A1A1A]' : 'text-[#1A1A1A]/40'}>
-                    {selectedConf || 'Yes'}
+                    {selectedConf || 'Would you stay with the opposite sex?'}
                   </span>
                   {confOpen ? <FaChevronUp size={12} className="text-[#1A1A1A]/40 shrink-0" /> : <FaChevronDown size={12} className="text-[#1A1A1A]/40 shrink-0" />}
                 </button>
@@ -272,7 +272,7 @@ export default function RegistrationStep3() {
                 <div ref={confRef} className="relative w-[300px] mx-auto">
                   <button type="button" onClick={() => setConfOpen((o) => !o)} className="w-full border border-[#1A1A1A] px-3 py-2 flex items-center justify-between text-sm font-tungsten font-normal focus:outline-none focus:border-[#1A1A1A] transition-colors bg-transparent">
                     <span className={selectedConf ? 'text-[#1A1A1A] text-sm' : 'text-[#1A1A1A]/40 text-sm'}>
-                      {selectedConf || 'Yes'}
+                      {selectedConf || 'Would you stay with the opposite sex?'}
                     </span>
                     {confOpen ? <FaChevronUp size={10} className="text-[#1A1A1A]/40 shrink-0" /> : <FaChevronDown size={10} className="text-[#1A1A1A]/40 shrink-0" />}
                   </button>

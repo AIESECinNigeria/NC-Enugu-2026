@@ -10,6 +10,7 @@ interface AgentIDProps {
   role: string
   crewName: string
   clearance: string
+  clearanceLevel?: string
 }
 
 const ROLE_IMAGES: Record<string, string> = {
@@ -21,11 +22,23 @@ const ROLE_IMAGES: Record<string, string> = {
   'THE WILD CARD':  '/images/thewildcard.png',
 }
 
-export default function AgentID({ codename, lc, role, crewName, clearance }: AgentIDProps) {
+export default function AgentID({ codename, lc, role, crewName, clearance, clearanceLevel }: AgentIDProps) {
   const roleImage = ROLE_IMAGES[crewName] ?? '/images/thespecialist.png'
   const cardRef = useRef<HTMLDivElement>(null)
   const mobileCardRef = useRef<HTMLDivElement>(null)
   const [isDownloading, setIsDownloading] = useState(true)
+
+  const CLEARANCE_LEVELS: Record<string, number> = {
+    'Team Member': 1,
+    'Team Leader': 2,
+    'LCVP': 3,
+    'LCP': 4,
+    'The Cooks (EST)': 5,
+    'Alumni': 6,
+  }
+
+  const clearanceLevelNum = clearanceLevel ? CLEARANCE_LEVELS[clearanceLevel] || 1 : 1
+  const clearanceDisplay = `Clearance Level ${clearanceLevelNum}`
 
   useEffect(() => {
     const download = async () => {
@@ -162,7 +175,7 @@ export default function AgentID({ codename, lc, role, crewName, clearance }: Age
                       Certificate of Identity
                     </p>
                     <p style={{ fontFamily: "'Courier Prime', monospace", fontStyle: 'italic', fontSize: '15px', color: '#AB1212', textAlign: 'center' }}>
-                      {clearance}
+                      {clearanceDisplay}
                     </p>
                     <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 400, fontSize: '18px', color: '#1A1A1A', marginTop: '12px' }}>
                       CODE NAME: <span style={{ fontWeight: 700 }}>{codename}</span>
@@ -172,6 +185,9 @@ export default function AgentID({ codename, lc, role, crewName, clearance }: Age
                     </p>
                     <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 400, fontSize: '18px', color: '#1A1A1A' }}>
                       ROLE: <span style={{ fontWeight: 700 }}>{crewName}</span>
+                    </p>
+                    <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 400, fontSize: '18px', color: '#1A1A1A', marginTop: '4px' }}>
+                      ID: <span style={{ fontWeight: 700 }}>007</span>
                     </p>
                   </div>
                   {/* Specialist sitting on allroles */}
@@ -283,7 +299,7 @@ export default function AgentID({ codename, lc, role, crewName, clearance }: Age
                         Certificate of Identity
                       </p>
                       <p style={{ fontFamily: "'Courier Prime', monospace", fontStyle: 'italic', fontSize: '9px', color: '#AB1212', textAlign: 'center', margin: '2px 0 0 0' }}>
-                        {clearance}
+                        {clearanceDisplay}
                       </p>
                       <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 400, fontSize: '9px', color: '#1A1A1A', marginTop: '4px', margin: '4px 0 0 0' }}>
                         CODE NAME: <span style={{ fontWeight: 700 }}>{codename}</span>
@@ -293,6 +309,9 @@ export default function AgentID({ codename, lc, role, crewName, clearance }: Age
                       </p>
                       <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 400, fontSize: '9px', color: '#1A1A1A', margin: '0' }}>
                         ROLE: <span style={{ fontWeight: 700 }}>{crewName}</span>
+                      </p>
+                      <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 400, fontSize: '9px', color: '#1A1A1A', margin: '2px 0 0 0' }}>
+                        ID: <span style={{ fontWeight: 700 }}>007</span>
                       </p>
                     </div>
                     {/* Specialist sitting on allroles */}
