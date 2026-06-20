@@ -57,12 +57,15 @@ export default function CustomCalendar({ onDateSelect, value, minYear = 1900, ma
   }
 
   const handleSelectDay = (day: number) => {
-    const selectedDate = new Date(currentYear, currentMonth, day)
-    const dateString = selectedDate.toISOString().split('T')[0]
-    onDateSelect(dateString)
-    setIsOpen(false)
-    setStep('calendar')
-  }
+  const selectedDate = new Date(currentYear, currentMonth, day)
+
+  const dateString =
+    `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`
+
+  onDateSelect(dateString)
+  setIsOpen(false)
+  setStep('calendar')
+}
 
   const handleMonthClick = () => {
     setStep('month')
@@ -74,7 +77,7 @@ export default function CustomCalendar({ onDateSelect, value, minYear = 1900, ma
 
   const years = Array.from({ length: maxYear - minYear + 1 }, (_, i) => minYear + i).reverse()
 
-  const displayDate = value ? new Date(value).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Select date'
+  const displayDate = value ? new Date(value).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Your birth date'
 
   return (
     <div ref={containerRef} className="relative w-[300px] mx-auto md:w-125 md:mx-0">
