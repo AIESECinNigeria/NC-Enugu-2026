@@ -118,20 +118,20 @@ export default function Confirmation() {
             </div>
 
             {/* Middle-top section: "YOUR CREW..." slanted text */}
-            <div className="flex flex-col items-start gap-0 pt-8">
-              <p style={{ fontFamily: "'Punk Kid', sans-serif", fontSize: '58px', transform: 'rotate(-15deg)', lineHeight: 1 }} className="text-[#1A1A1A] text-left">
+            <div className="flex flex-col items-start gap-0 pt-2">
+              <p style={{ fontFamily: "'Punk Kid', sans-serif", fontSize: '50px', transform: 'rotate(-15deg)', lineHeight: 1 }} className="text-[#1A1A1A] text-left">
                 YOUR <span className="text-[#CE0000]">CREW</span>
               </p>
-              <p style={{ fontFamily: "'Punk Kid', sans-serif", fontSize: '58px', transform: 'rotate(-15deg)', lineHeight: 1 }} className="text-[#1A1A1A] text-left">
+              <p style={{ fontFamily: "'Punk Kid', sans-serif", fontSize: '50px', transform: 'rotate(-15deg)', lineHeight: 1 }} className="text-[#1A1A1A] text-left">
                 ASSIGNMENT
               </p>
-              <p style={{ fontFamily: "'Punk Kid', sans-serif", fontSize: '58px', transform: 'rotate(-15deg)', lineHeight: 1 }} className="text-[#1A1A1A] text-left">
+              <p style={{ fontFamily: "'Punk Kid', sans-serif", fontSize: '50px', transform: 'rotate(-15deg)', lineHeight: 1 }} className="text-[#1A1A1A] text-left">
                 IS LOCKED
               </p>
             </div>
 
             {/* Middle section: NC logo watermark with plane image on top */}
-            <div className="relative flex items-center justify-center flex-1 py-2">
+            <div className="relative flex items-center justify-center py-0">
               {/* Watermark — semi-transparent NC logo */}
               <Image
                 src="/images/nclogo.png"
@@ -176,7 +176,7 @@ export default function Confirmation() {
                 width: '261px',
                 height: '50px',
               }}
-              className="text-white cursor-pointer tracking-wider mb-4 whitespace-nowrap flex items-center justify-center"
+              className="text-white cursor-pointer tracking-wider -mt-8 whitespace-nowrap flex items-center justify-center"
             >
               DOWNLOAD ID (CLASSIFIED)
             </button>

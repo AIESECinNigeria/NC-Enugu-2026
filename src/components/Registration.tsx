@@ -237,7 +237,7 @@ export default function Registration() {
 
             <form action={formAction} className="space-y-2 flex flex-col">
               <div>
-                <label htmlFor="codename" className="block text-base font-courier font-bold text-[#1A1A1A] mb-1">
+                <label htmlFor="codename" className="block text-base font-courier font-bold text-[#1A1A1A] mb-1 w-[300px] mx-auto">
                   What is your codename?
                 </label>
                 <input
