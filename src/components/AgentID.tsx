@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import { useRef, useEffect, useState } from 'react'
 
-
 interface AgentIDProps {
   codename: string
   lc: string
@@ -24,9 +23,6 @@ const ROLE_IMAGES: Record<string, string> = {
 
 export default function AgentID({ codename, lc, role, crewName, clearance, clearanceLevel }: AgentIDProps) {
   const roleImage = ROLE_IMAGES[crewName] ?? '/images/thespecialist.png'
-  const cardRef = useRef<HTMLDivElement>(null)
-  const mobileCardRef = useRef<HTMLDivElement>(null)
-  const [isDownloading, setIsDownloading] = useState(true)
 
   const CLEARANCE_LEVELS: Record<string, number> = {
     'Team Member': 1,
@@ -40,17 +36,25 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
   const clearanceLevelNum = clearanceLevel ? CLEARANCE_LEVELS[clearanceLevel] || 1 : 1
   const clearanceDisplay = `Clearance Level ${clearanceLevelNum}`
 
+  const cardRef = useRef<HTMLDivElement>(null)
+  const mobileCardRef = useRef<HTMLDivElement>(null)
+  const [isDownloading, setIsDownloading] = useState(true)
+
   useEffect(() => {
     const download = async () => {
-      if (!cardRef.current) return
       try {
         const html2canvas = (await import('html2canvas')).default
-        const clonedElement = cardRef.current.cloneNode(true) as HTMLElement
+        const isMobileViewport = window.matchMedia('(max-width: 767px)').matches
+        const target = isMobileViewport ? mobileCardRef.current : cardRef.current
+
+        if (!target) return
+
+        const clonedElement = target.cloneNode(true) as HTMLElement
 
         // Remove the loading overlay
         const allDivs = clonedElement.querySelectorAll('div')
         allDivs.forEach(div => {
-          if (div.textContent.includes('DECRYPTING AGENT')) {
+          if (div.textContent?.includes('DECRYPTING AGENT')) {
             div.remove()
           }
         })
@@ -59,25 +63,37 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
         const container = document.createElement('div')
         container.style.position = 'absolute'
         container.style.left = '-9999px'
+        container.style.top = '0'
         container.appendChild(clonedElement)
         document.body.appendChild(container)
 
-        const canvas = await html2canvas(clonedElement, {
-          scale: 2,
-          logging: false,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: '#FDF5E6',
-        })
+        try {
+          // Set explicit dimensions based on viewport
+          if (isMobileViewport) {
+            clonedElement.style.width = '350px'
+            clonedElement.style.height = '280px'
+          } else {
+            clonedElement.style.width = '600px'
+            clonedElement.style.height = '500px'
+          }
 
-        document.body.removeChild(container)
+          const canvas = await html2canvas(clonedElement, {
+            scale: 2,
+            logging: false,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#FDF5E6',
+          })
 
-        const link = document.createElement('a')
-        link.download = `${codename.replace(/\s+/g, '_')}_ID.png`
-        link.href = canvas.toDataURL('image/png')
-        link.click()
-        console.log('ID card downloaded successfully')
-        setIsDownloading(false)
+          const link = document.createElement('a')
+          link.download = `${codename.replace(/\s+/g, '_')}_ID.png`
+          link.href = canvas.toDataURL('image/png')
+          link.click()
+          console.log('ID card downloaded successfully')
+        } finally {
+          document.body.removeChild(container)
+          setIsDownloading(false)
+        }
       } catch (err) {
         console.error('Failed to capture ID card:', err)
         setIsDownloading(false)
@@ -86,47 +102,6 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
     const timer = setTimeout(download, 2000)
     return () => clearTimeout(timer)
   }, [codename])
-
-  const downloadMobileID = async () => {
-    if (!mobileCardRef.current) return
-    try {
-      const html2canvas = (await import('html2canvas')).default
-      const clonedElement = mobileCardRef.current.cloneNode(true) as HTMLElement
-
-      // Remove the loading overlay
-      const allDivs = clonedElement.querySelectorAll('div')
-      allDivs.forEach(div => {
-        if (div.textContent.includes('DECRYPTING AGENT')) {
-          div.remove()
-        }
-      })
-
-      // Temporarily add to DOM for capture
-      const container = document.createElement('div')
-      container.style.position = 'absolute'
-      container.style.left = '-9999px'
-      container.appendChild(clonedElement)
-      document.body.appendChild(container)
-
-      const canvas = await html2canvas(clonedElement, {
-        scale: 3,
-        logging: false,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#FDF5E6',
-      })
-
-      document.body.removeChild(container)
-
-      const link = document.createElement('a')
-      link.download = `${codename.replace(/\s+/g, '_')}_ID.png`
-      link.href = canvas.toDataURL('image/png')
-      link.click()
-      console.log('Mobile ID card downloaded successfully')
-    } catch (err) {
-      console.error('Failed to capture mobile ID card:', err)
-    }
-  }
 
   return (
     <section
@@ -137,7 +112,6 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
         backgroundPosition: 'center',
       }}
     >
-      {/* Desktop Layout */}
       <div className="hidden md:flex flex-col items-start justify-center relative z-10 gap-4 pl-12">
         <div className="relative w-fit">
           <p className="absolute top-4 left-4 text-sm font-courier italic text-[#FDFDFD] bg-[#1A1A1A] px-3 py-2">
@@ -236,27 +210,44 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
               priority
             />
           </div>
+
+          {/* Text below card */}
+          <div className="mt-6 text-center">
+            <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 700, fontSize: '25px', color: '#CE0000' }}>
+              Show this card to verify your<br />clearance with fellow field agents
+            </p>
+          </div>
+          <div className="absolute top-0 right-0">
+            <Image
+              src="/images/preconfim.png"
+              alt="watermark"
+              width={340}
+              height={415}
+              style={{ opacity: 0.35 }}
+              priority
+            />
+          </div>
         </div>
       </div>
 
       {/* Mobile Layout */}
       <div className="md:hidden flex flex-col items-center justify-center relative z-10 w-full px-4">
         {/* Mobile image container */}
-        <div className="relative w-full flex justify-center" style={{ maxWidth: '800px' }}>
-          {/* Image */}
+        <div className="relative w-full flex justify-center" style={{ maxWidth: '400px' }}>
+          {/* Mobile background image */}
           <Image
             src="/images/mbg_one.png"
             alt="mobile background"
-            width={600}
-            height={700}
+            width={400}
+            height={600}
             priority
           />
 
           {/* Overlay content on image */}
           <div className="absolute inset-0 flex flex-col justify-between items-center w-full h-full p-4">
             {/* Top section: Dossier text */}
-            <div className="flex justify-start pl-1 pt-1 z-10 w-fit">
-              <p className="font-courier italic text-[#FDFDFD] bg-[#1A1A1A] px-1.5 py-0.5 whitespace-normal" style={{ lineHeight: '1.2', fontSize: '10px', maxWidth: '85%' }}>
+            <div className="w-full flex justify-start pl-2 pt-2">
+              <p className="text-xs font-courier italic text-[#FDFDFD] bg-[#1A1A1A] px-2 py-1" style={{ lineHeight: '1.2' }}>
                 YOUR OPERATIVE BADGE HAS BEEN CLEARED FOR TRANSMISSION
               </p>
             </div>
@@ -275,16 +266,17 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
 
             {/* Middle: ID card with full layout scaled for mobile */}
             <div className="flex flex-col items-center gap-3 flex-1 justify-center">
-              <div className="relative" ref={mobileCardRef}>
+              <div className="relative" ref={mobileCardRef} style={{ width: '350px', height: '280px', overflow: 'hidden' }}>
                 <Image
                   src="/images/idimage.png"
                   alt="id image"
                   width={350}
                   height={280}
                   priority
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '40px' }}
                 />
                 {/* Bordered content area: text + specialist image */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center px-2 py-2" style={{ gap: '6px' }}>
+                <div className="absolute inset-0 flex flex-col items-center justify-center px-2 py-2" style={{ gap: '6px', width: '100%', height: '100%' }}>
                   <div className="flex items-center gap-2 px-2 py-2 relative" style={{ border: '3px solid #1A1A1A', borderRadius: '14px', maxWidth: '95%' }}>
                     {/* nclogo watermark behind text */}
                     <div className="absolute inset-0 flex items-center justify-start pointer-events-none" style={{ zIndex: 0 }}>
@@ -315,9 +307,9 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
                       </p>
                     </div>
                     {/* Specialist sitting on allroles */}
-                    <div style={{ zIndex: 1 }} className="flex flex-col items-center">
-                      <Image src={roleImage} alt={crewName} width={85} height={120} />
-                      <Image src="/images/allroles.png" alt="all roles" width={65} height={20} />
+                    <div style={{ zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '2px', minWidth: '50px', maxWidth: '60px' }}>
+                      <Image src={roleImage} alt={crewName} width={60} height={80} style={{ objectFit: 'contain', maxWidth: '100%', height: 'auto' }} />
+                      <Image src="/images/allroles.png" alt="all roles" width={50} height={15} style={{ objectFit: 'contain', maxWidth: '100%', height: 'auto' }} />
                     </div>
                   </div>
                   <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 400, fontSize: '8px', color: '#1A1A1A', margin: '0' }}>
@@ -344,6 +336,13 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
                   </div>
                 )}
               </div>
+            </div>
+
+            {/* Text below card — mobile */}
+            <div className="mt-6 text-center w-full">
+              <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 700, fontSize: '16px', color: '#CE0000' }}>
+                Show this card to verify your<br />clearance with fellow field agents
+              </p>
             </div>
           </div>
         </div>
