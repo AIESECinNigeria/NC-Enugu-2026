@@ -334,7 +334,7 @@ export default function RegistrationStep3() {
                 <p className="text-sm text-[#1A1A1A] tracking-wide">{state.message}</p>
               )}
 
-              <div className="flex gap-2 mt-1">
+              <div className="flex gap-2 mt-1 justify-center w-[300px] mx-auto">
                 <button
                   type="button"
                   onClick={() => router.push('/step2')}
@@ -346,7 +346,7 @@ export default function RegistrationStep3() {
                 <button
                   type="submit"
                   disabled={pending}
-                  className="w-[200px] py-2 bg-[#1A1A1A] text-[#FFFFFF] font-tungsten flex items-center justify-center gap-2 text-sm hover:opacity-80 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="flex-1 py-2 bg-[#1A1A1A] text-[#FFFFFF] font-tungsten flex items-center justify-center gap-2 text-sm hover:opacity-80 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {pending ? 'Transmitting...' : 'Submit'}
                   <MdOutlineArrowForwardIos size={12} />

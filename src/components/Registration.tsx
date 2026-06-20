@@ -350,7 +350,7 @@ export default function Registration() {
               <button
                 type="submit"
                 disabled={pending}
-                className="mt-1 py-2 w-[200px] mx-auto bg-[#1A1A1A] text-[#FFFFFF] font-tungsten flex items-center justify-center gap-2 text-sm hover:opacity-80 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                className="mt-1 py-2 w-[300px] mx-auto bg-[#1A1A1A] text-[#FFFFFF] font-tungsten flex items-center justify-center gap-2 text-sm hover:opacity-80 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {pending ? 'Transmitting...' : 'Next'}
                 <MdOutlineArrowForwardIos size={14} />
