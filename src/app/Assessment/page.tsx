@@ -252,12 +252,12 @@ export default function Assesment() {
                         </div>
 
                         {/* Navigation Actions */}
-                        <div className={` ${styles.buttC} flex justify-between w-[85%] mt-[20px] self-start `}>
+                        <div className={` ${styles.buttC} flex w-[100%] gap-[10px] mt-[20px] `}>
                         {currentStep > 0 ? (
-                            <button type="button" onClick={handleBack} className={` ${styles.buttB} py-2 border-[1px] text-black hover:bg-black hover:text-white `}>
+                            <button type="button" onClick={handleBack} className={` ${styles.buttB} py-2 px-5 border-[1px] ml-[30px] text-black hover:bg-black hover:text-white `}>
                             <MdArrowBackIosNew size={14} />
                             </button>
-                        ) : <Link href="/" className={` ${styles.buttB} flex items-center py-2 border-[1px] text-black hover:bg-black hover:text-white `}>
+                        ) : <Link href="/" className={` ${styles.buttB} flex items-center py-2 px-4 border-[1px] ml-[70px] text-black hover:bg-black hover:text-white `}>
                             <MdArrowBackIosNew />
                             </Link>
                         }
