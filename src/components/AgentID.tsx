@@ -82,7 +82,7 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
             logging: false,
             useCORS: true,
             allowTaint: true,
-            backgroundColor: '#FDF5E6',
+            backgroundColor: null,
           })
 
           const link = document.createElement('a')
