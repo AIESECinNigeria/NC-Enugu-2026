@@ -163,11 +163,11 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
                 <div className="flex items-center gap-4 px-4 py-4 relative" style={{ border: '5px solid #1A1A1A', borderRadius: '24px' }}>
                   {/* nclogo watermark behind text */}
-                  <div className="absolute inset-0 flex items-center justify-start pointer-events-none" style={{ zIndex: 0 }}>
-                    <Image src="/images/nclogo.png" alt="logo" width={160} height={160} style={{ opacity: 0.1 }} />
+                  <div style={{ position: 'absolute', top: 0, left: 0, zIndex: 0 }} className="absolute inset-0 flex items-center justify-start pointer-events-none">
+                    <img src="/images/nclogo.png" alt="logo" width={160} height={160} style={{ opacity: 1 }} />
                   </div>
                   {/* Left text */}
-                  <div style={{ zIndex: 1, position: 'relative' }}>
+                  <div style={{ zIndex: 2, position: 'relative' }}>
                     <p style={{ fontFamily: "'Courier Prime', monospace", fontWeight: 700, fontSize: '25px', color: '#1A1A1A' }}>
                       COAL CITY HEIST
                     </p>
@@ -191,7 +191,7 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
                     </p>
                   </div>
                   {/* Specialist sitting on allroles */}
-                  <div style={{ zIndex: 1 }} className="flex flex-col items-center mt-4">
+                  <div style={{ zIndex: 2 }} className="flex flex-col items-center mt-4">
                     <Image src={roleImage} alt={crewName} width={140} height={200} />
                     <Image src="/images/allroles.png" alt="all roles" width={100} height={30} />
                   </div>
@@ -222,8 +222,8 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
             </div>
 
             {/* Bottom text — inside the brown background area */}
-            <p className="mt-4 text-center" style={{ fontFamily: "'Courier Prime', monospace", fontStyle: 'italic', fontSize: '16px', color: '#1A1A1A' }}>
-              Show this card to verify your clearance with fellow field agents
+            <p className="mt-4 text-center" style={{ fontFamily: "'Courier Prime', monospace", fontStyle: 'italic', fontSize: '20px', color: '#CE0000', fontWeight: 700 }}>
+              Show this card to verify your <br/> clearance with fellow field agents
             </p>
           </div>
           <div className="absolute top-0 right-0">
@@ -285,10 +285,10 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
                 />
                 {/* Bordered content area: text + specialist image */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center px-2 py-2" style={{ gap: '6px' }}>
-                  <div className="flex items-center gap-2 px-2 py-2 relative" style={{ border: '3px solid #1A1A1A', borderRadius: '14px', maxWidth: '95%' }}>
+                  <div className="flex items-center gap-2 px-2 py-2 relative" style={{ border: '3px solid #1A1A1A', borderRadius: '14px', maxWidth: '100%' }}>
                     {/* nclogo watermark behind text */}
-                    <div className="absolute inset-0 flex items-center justify-start pointer-events-none" style={{ zIndex: 0 }}>
-                      <Image src="/images/nclogo.png" alt="logo" width={100} height={100} style={{ opacity: 0.1 }} />
+                    <div className="absolute inset-0 flex items-center justify-start pointer-events-none" style={{ zIndex: 1 }}>
+                      <Image src="/images/nclogo.png" alt="logo" width={100} height={100} style={{ opacity: 1 }} />
                     </div>
                     {/* Left text */}
                     <div style={{ zIndex: 1, position: 'relative' }}>
@@ -344,6 +344,20 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
                   </div>
                 )}
               </div>
+              <p
+    className="text-center"
+    style={{
+      fontFamily: "'Courier Prime', monospace",
+      fontStyle: 'italic',
+      fontSize: '12px',
+      color: '#CE0000',
+      fontWeight: 700,
+      marginTop: '8px'
+    }}
+  >
+    Show this card to verify your <br /> clearance with fellow field agents
+  </p>
+
             </div>
           </div>
         </div>
