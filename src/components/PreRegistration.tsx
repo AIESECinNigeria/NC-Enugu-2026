@@ -49,7 +49,7 @@ export default function PreRegistration() {
               backgroundColor: '#AB1212',
             }}
             onClick={() => router.push('/registration')}
-            className="absolute bottom-6 left-20 z-10 text-white text-2xl tracking-widest px-16 py-2 cursor-pointer"
+            className="absolute bottom-12 left-20 z-10 text-white text-2xl tracking-widest px-16 py-2 cursor-pointer"
           >
             BEGIN REGISTRATION
           </button>

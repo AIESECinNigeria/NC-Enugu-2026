@@ -8,8 +8,8 @@ import { GrPrevious } from 'react-icons/gr'
 import { MdOutlineArrowForwardIos } from 'react-icons/md'
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa'
 
-const roles = ['Team Member', 'Team Leader', 'LCVP', 'LCP', 'The Cooks (EST)', 'Alumni']
-const lcs = ['Abeokuta', 'Abuja', 'Akure', 'Benin', 'Benue', 'Calabar', 'Ekiti', 'Enugu', 'Ibadan', 'Ife', 'Ilorin', 'JOS', 'Kano', 'Lagos', 'Port-harcourt', 'Zaria']
+const roles = ['Team Member', 'Team Leader', 'LCVP', 'LCP', 'Alumni']
+const lcs = ['Abeokuta', 'Abuja', 'Akure', 'Benin', 'Benue', 'Calabar', 'Ekiti', 'Enugu', 'Ibadan', 'Ife', 'Ilorin', 'JOS', 'Kano', 'Lagos', 'Port-harcourt', 'Zaria', 'The Cooks (EST)', 'Alumni']
 const conferenceOptions = ['Yes', 'No']
 
 const initialState = { message: '', success: false }
