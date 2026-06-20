@@ -29,6 +29,13 @@ export default function CustomCalendar({ onDateSelect, value, minYear = 1900, ma
     ...Array.from({ length: daysInMonth }, (_, i) => i + 1)
   ]
 
+  // Sync calendar view to the saved date when value is provided from a cookie
+  useEffect(() => {
+    if (value) {
+      setCurrentDate(new Date(value))
+    }
+  }, [value])
+
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
@@ -75,7 +82,7 @@ export default function CustomCalendar({ onDateSelect, value, minYear = 1900, ma
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] px-3 py-2 text-xs font-courier font-bold text-left hover:bg-[#1A1A1A]/5 transition-colors"
+        className="w-full bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A]/40 px-3 py-2 text-sm font-bold text-left hover:bg-[#1A1A1A]/5 font-tungsten transition-colors"
       >
         {displayDate}
       </button>

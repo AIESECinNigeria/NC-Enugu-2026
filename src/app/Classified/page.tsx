@@ -38,7 +38,7 @@ export default function Classified() {
                         <p> - - - - - - - - -  -</p>
                         <p>Now round up your registration by giving us some of your details.</p>
                     </div>
-                    <Link className={`${styles.butt} bg-[#AB1212] mt-[40px] w-[450px] h-[55px] flex justify-center items-center text-[white] text-[28px] font-tungstenC cursor-pointer `} href="/">
+                    <Link className={`${styles.butt} bg-[#AB1212] mt-[10] w-[112.5] h-[13.75] flex justify-center items-center text-[white] text-[28px] font-tungstenC cursor-pointer `} href="/">
                         B&nbsp; E&nbsp; G&nbsp; I&nbsp; N&nbsp;  &nbsp;&nbsp;&nbsp; R&nbsp; E&nbsp; G&nbsp; I&nbsp; S&nbsp; T&nbsp; R&nbsp; A&nbsp; T&nbsp; I&nbsp; O&nbsp; N&nbsp;
                     </Link>
                 </div>
