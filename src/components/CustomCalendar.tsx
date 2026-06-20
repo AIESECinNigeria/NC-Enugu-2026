@@ -29,6 +29,13 @@ export default function CustomCalendar({ onDateSelect, value, minYear = 1900, ma
     ...Array.from({ length: daysInMonth }, (_, i) => i + 1)
   ]
 
+  // Sync calendar view to the saved date when value is provided from a cookie
+  useEffect(() => {
+    if (value) {
+      setCurrentDate(new Date(value))
+    }
+  }, [value])
+
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {

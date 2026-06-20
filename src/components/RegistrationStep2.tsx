@@ -20,20 +20,28 @@ const dropdownPanelClass = 'absolute z-20 top-full mt-1 w-full border border-[#1
 const optionClass = (selected: boolean) => `w-full px-3 py-2 text-left text-sm font-tungsten font-normal hover:bg-[#1A1A1A] hover:text-white transition-colors ${selected ? 'bg-[#1A1A1A] text-white' : 'text-[#1A1A1A]'}`
 const optionClassMobile = (selected: boolean) => `w-full px-3 py-2 text-left text-sm font-tungsten font-normal hover:bg-[#1A1A1A] hover:text-white transition-colors ${selected ? 'bg-[#1A1A1A] text-white' : 'text-[#1A1A1A]'}`
 
-export default function RegistrationStep2() {
+interface Step2InitialData {
+  role?: string
+  lc?: string
+  firstConference?: string
+  purpose?: string
+  notes?: string
+}
+
+export default function RegistrationStep2({ initialData }: { initialData?: Step2InitialData }) {
   const router = useRouter()
   const [state, formAction, pending] = useActionState(registerAgentStep2, initialState)
 
   const [roleOpen, setRoleOpen] = useState(false)
-  const [selectedRole, setSelectedRole] = useState('')
+  const [selectedRole, setSelectedRole] = useState(initialData?.role || '')
   const roleRef = useRef<HTMLDivElement>(null)
 
   const [lcOpen, setLcOpen] = useState(false)
-  const [selectedLc, setSelectedLc] = useState('')
+  const [selectedLc, setSelectedLc] = useState(initialData?.lc || '')
   const lcRef = useRef<HTMLDivElement>(null)
 
   const [confOpen, setConfOpen] = useState(false)
-  const [selectedConf, setSelectedConf] = useState('')
+  const [selectedConf, setSelectedConf] = useState(initialData?.firstConference || '')
   const confRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -185,6 +193,7 @@ export default function RegistrationStep2() {
                 id="purpose"
                 type="text"
                 name="purpose"
+                defaultValue={initialData?.purpose || ''}
                 placeholder="What are you here for..."
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
               />
@@ -199,6 +208,7 @@ export default function RegistrationStep2() {
                 id="notes"
                 type="text"
                 name="notes"
+                defaultValue={initialData?.notes || ''}
                 placeholder="Anything we should know.."
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
               />
@@ -340,6 +350,7 @@ export default function RegistrationStep2() {
                   id="purpose"
                   type="text"
                   name="purpose"
+                  defaultValue={initialData?.purpose || ''}
                   placeholder="What you expect..."
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
                 />
@@ -354,6 +365,7 @@ export default function RegistrationStep2() {
                   id="notes"
                   type="text"
                   name="notes"
+                  defaultValue={initialData?.notes || ''}
                   placeholder="Anything else..."
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
                 />
