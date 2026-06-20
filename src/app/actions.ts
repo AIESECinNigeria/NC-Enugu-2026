@@ -23,6 +23,7 @@ export async function registerAgent(_prevState: unknown, formData: FormData) {
     maxAge: 3600,
     httpOnly: true,
     sameSite: 'lax',
+    path: '/',
   })
 
   redirect('/step2')
@@ -50,6 +51,7 @@ export async function registerAgentStep2(_prevState: unknown, formData: FormData
     maxAge: 3600,
     httpOnly: true,
     sameSite: 'lax',
+    path: '/',
   })
 
   redirect('/step3')
@@ -62,7 +64,6 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
   const step2 = JSON.parse(cookieStore.get('step2_data')?.value || '{}')
   const quizId = cookieStore.get('quiz_id')?.value || ''
 
-  // Parse crew type from quiz result cookie
   let crewType = ''
   try {
     const raw = cookieStore.get('quiz_result')?.value || ''
@@ -83,26 +84,33 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
     directLine:       formData.get('directLine')       as string,
   }
 
-  // Map frontend field names -> backend ConferenceSchema field names
+  // Save step3 to cookie so going back restores it
+  cookieStore.set('step3_data', JSON.stringify(step3Raw), {
+    maxAge: 3600,
+    httpOnly: true,
+    sameSite: 'lax',
+    path: '/',
+  })
+
   const mappedPayload = {
-    name:                         step1.codename                      as string,
-    email:                        step1.email                         as string,
-    date_of_birth:                step1.birthYear                     as string,
-    phone:                        (step1.phone || '')                 as string,
-    lc:                           step2.lc                            as string,
-    year_they_joined:             step1.recruitmentYear               as string,
-    role:                         step2.role                          as string,
-    first_conference:             (step2.firstConference === 'Yes'),
-    expectations:                 (step2.purpose || '')               as string,
-    social_media:                 (step1.instagram || '')             as string,
-    allergies:                    (step3Raw.allergies || '')          as string,
-    allergy_treatment:            (step3Raw.countermeasures || '')    as string,
-    can_stay_with_opposite_sex:   (step3Raw.coEd === 'Yes'),
-    emergency_contact:            (step3Raw.emergencyContact || '')   as string,
-    emergency_contact_relationship: (step3Raw.relationship || '')    as string,
-    instructions:                 (step2.notes || '')                 as string,
-    quiz_id:                      quizId,
-    crew_type:                    crewType,
+    name:                           step1.codename                      as string,
+    email:                          step1.email                         as string,
+    date_of_birth:                  step1.birthYear                     as string,
+    phone:                          (step1.phone || '')                 as string,
+    lc:                             step2.lc                            as string,
+    year_they_joined:               step1.recruitmentYear               as string,
+    role:                           step2.role                          as string,
+    first_conference:               (step2.firstConference === 'Yes'),
+    expectations:                   (step2.purpose || '')               as string,
+    social_media:                   (step1.instagram || '')             as string,
+    allergies:                      (step3Raw.allergies || '')          as string,
+    allergy_treatment:              (step3Raw.countermeasures || '')    as string,
+    can_stay_with_opposite_sex:     (step3Raw.coEd === 'Yes'),
+    emergency_contact:              (step3Raw.emergencyContact || '')   as string,
+    emergency_contact_relationship: (step3Raw.relationship || '')      as string,
+    instructions:                   (step2.notes || '')                 as string,
+    quiz_id:                        quizId,
+    crew_type:                      crewType,
   }
 
   let res: Response
@@ -132,14 +140,13 @@ export async function registerAgentStep3(_prevState: unknown, formData: FormData
     console.error('Failed to parse backend response')
   }
 
-  // Store ID-relevant data in a readable cookie for the ID page
   cookieStore.set('agent_profile', JSON.stringify({
-    codename: step1.codename,
-    lc:       step2.lc,
-    role:     backendRole,
+    codename:       step1.codename,
+    lc:             step2.lc,
+    role:           backendRole,
     clearanceLevel: step2.role,
-    clearance: backendClearance,
-    crewName: crewType,
+    clearance:      backendClearance,
+    crewName:       crewType,
   }), {
     maxAge:   3600,
     httpOnly: false,

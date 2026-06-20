@@ -18,12 +18,21 @@ const dropdownPanelClass = 'absolute z-20 top-full mt-1 w-full border border-[#1
 const optionClass = (selected: boolean) => `w-full px-3 py-2 text-left text-sm font-tungsten font-normal hover:bg-[#1A1A1A] hover:text-white transition-colors ${selected ? 'bg-[#1A1A1A] text-white' : 'text-[#1A1A1A]'}`
 const optionClassMobile = (selected: boolean) => `w-full px-3 py-2 text-left text-sm font-tungsten font-normal hover:bg-[#1A1A1A] hover:text-white transition-colors ${selected ? 'bg-[#1A1A1A] text-white' : 'text-[#1A1A1A]'}`
 
-export default function RegistrationStep3() {
+interface Step3InitialData {
+  allergies?: string
+  countermeasures?: string
+  coEd?: string
+  emergencyContact?: string
+  relationship?: string
+  directLine?: string
+}
+
+export default function RegistrationStep3({ initialData }: { initialData?: Step3InitialData }) {
   const router = useRouter()
   const [state, formAction, pending] = useActionState(registerAgentStep3, initialState)
 
   const [confOpen, setConfOpen] = useState(false)
-  const [selectedConf, setSelectedConf] = useState('')
+  const [selectedConf, setSelectedConf] = useState(initialData?.coEd || '')
   const confRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -98,6 +107,7 @@ export default function RegistrationStep3() {
                 id="allergies"
                 type="text"
                 name="allergies"
+                defaultValue={initialData?.allergies || ''}
                 placeholder="Anything the crew should know..."
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
               />
@@ -112,6 +122,7 @@ export default function RegistrationStep3() {
                 id="countermeasures"
                 type="text"
                 name="countermeasures"
+                defaultValue={initialData?.countermeasures || ''}
                 placeholder="Drugs, remedies, etc..."
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
               />
@@ -151,6 +162,7 @@ export default function RegistrationStep3() {
                 id="purpose"
                 type="text"
                 name="purpose"
+                defaultValue={initialData?.emergencyContact || ''}
                 placeholder="Next of kin"
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
               />
@@ -165,6 +177,7 @@ export default function RegistrationStep3() {
                 id="notes"
                 type="text"
                 name="notes"
+                defaultValue={initialData?.relationship || ''}
                 placeholder="Relationship"
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
               />
@@ -178,6 +191,7 @@ export default function RegistrationStep3() {
                 id="directLine"
                 type="tel"
                 name="directLine"
+                defaultValue={initialData?.directLine || ''}
                 placeholder="In case we need to make the call"
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
               />
@@ -244,6 +258,7 @@ export default function RegistrationStep3() {
                   id="allergies"
                   type="text"
                   name="allergies"
+                  defaultValue={initialData?.allergies || ''}
                   placeholder="Any allergies..."
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
                 />
@@ -258,6 +273,7 @@ export default function RegistrationStep3() {
                   id="countermeasures"
                   type="text"
                   name="countermeasures"
+                  defaultValue={initialData?.countermeasures || ''}
                   placeholder="Drugs, remedies..."
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
                 />
@@ -297,6 +313,7 @@ export default function RegistrationStep3() {
                   id="purpose"
                   type="text"
                   name="purpose"
+                  defaultValue={initialData?.emergencyContact || ''}
                   placeholder="Next of kin"
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
                 />
@@ -311,6 +328,7 @@ export default function RegistrationStep3() {
                   id="notes"
                   type="text"
                   name="notes"
+                  defaultValue={initialData?.relationship || ''}
                   placeholder="Connection"
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
                 />
@@ -325,6 +343,7 @@ export default function RegistrationStep3() {
                   id="directLine"
                   type="tel"
                   name="directLine"
+                  defaultValue={initialData?.directLine || ''}
                   placeholder="Phone number"
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
                 />

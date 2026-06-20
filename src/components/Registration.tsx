@@ -15,12 +15,25 @@ const recruitmentYears = Array.from(
 
 const initialState = { message: '', success: false }
 
-export default function Registration() {
+interface Step1InitialData {
+  codename?: string
+  phone?: string
+  email?: string
+  birthYear?: string
+  recruitmentYear?: string | number
+  instagram?: string
+}
+
+export default function RegistrationClient({ initialData }: { initialData?: Step1InitialData }) {
   const [state, formAction, pending] = useActionState(registerAgent, initialState)
   const [pickerOpen, setPickerOpen] = useState(false)
-  const [selectedYear, setSelectedYear] = useState<number | null>(null)
+  const [selectedYear, setSelectedYear] = useState<number | null>(
+    initialData?.recruitmentYear ? Number(initialData.recruitmentYear) : null
+  )
   const pickerRef = useRef<HTMLDivElement>(null)
-  const [selectedBirthDate, setSelectedBirthDate] = useState('')
+  const [selectedBirthDate, setSelectedBirthDate] = useState(
+    initialData?.birthYear || ''
+  )
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -94,6 +107,7 @@ export default function Registration() {
                 id="codename"
                 type="text"
                 name="codename"
+                defaultValue={initialData?.codename || ''}
                 placeholder="Enter your alias"
                 required
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
@@ -108,6 +122,7 @@ export default function Registration() {
                 id="phone"
                 type="tel"
                 name="phone"
+                defaultValue={initialData?.phone || ''}
                 placeholder="In case the crew needs to reach you..."
                 required
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
@@ -122,6 +137,7 @@ export default function Registration() {
                 id="email"
                 type="email"
                 name="email"
+                defaultValue={initialData?.email || ''}
                 placeholder="your classified inbox"
                 required
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
@@ -189,6 +205,7 @@ export default function Registration() {
                 type="text"
                 name="instagram"
                 placeholder="Instagram handle"
+                defaultValue={initialData?.instagram || ''}
                 className="w-125 bg-transparent border border-[#1A1A1A]/40 text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
               />
             </div>
@@ -244,6 +261,7 @@ export default function Registration() {
                   id="codename"
                   type="text"
                   name="codename"
+                  defaultValue={initialData?.codename || ''}
                   placeholder="Enter your alias"
                   required
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
@@ -258,6 +276,7 @@ export default function Registration() {
                   id="phone"
                   type="tel"
                   name="phone"
+                  defaultValue={initialData?.phone || ''}
                   placeholder="Contact"
                   required
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
@@ -272,6 +291,7 @@ export default function Registration() {
                   id="email"
                   type="email"
                   name="email"
+                  defaultValue={initialData?.email || ''}
                   placeholder="your email"
                   required
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
@@ -280,7 +300,7 @@ export default function Registration() {
 
               <div>
                 <label htmlFor="birthYear" className="block text-base font-courier font-bold text-[#1A1A1A] mb-1">
-                  What year were you commissioned?
+                  When were you commissioned?
                 </label>
                 <input type="hidden" name="birthYear" value={selectedBirthDate} required />
                 <CustomCalendar onDateSelect={setSelectedBirthDate} value={selectedBirthDate} minYear={1900} maxYear={2009} />
@@ -339,6 +359,7 @@ export default function Registration() {
                   type="text"
                   name="instagram"
                   placeholder="Instagram"
+                  defaultValue={initialData?.instagram || ''}
                   className="w-[300px] mx-auto block bg-transparent border border-[#1A1A1A] text-[#1A1A1A] placeholder-[#1A1A1A]/40 placeholder-tungsten px-3 py-2 text-sm focus:outline-none focus:border-[#1A1A1A] transition-colors"
                 />
               </div>
