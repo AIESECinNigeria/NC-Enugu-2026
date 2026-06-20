@@ -103,7 +103,7 @@ export default function PreRegistration() {
             src="/images/mbg_one.png"
             alt="paper Bg"
             width={600}
-            height={700}
+            height={500}
             priority
           />
 
@@ -117,12 +117,12 @@ export default function PreRegistration() {
             {/* Center section with equal spacing */}
             <div className="flex flex-col items-center gap-3">
               {/* CLASSIFIED text */}
-              <div style={{ fontFamily: "'Punk Kid', sans-serif", fontSize: '24px', color: '#CE0000', border: '4px solid #CE0000', padding: '8px 15px', transform: 'rotate(-7deg)' }}>
+              <div style={{ fontFamily: "'Punk Kid', sans-serif", fontSize: '24px', color: '#CE0000', border: '4px solid #CE0000', padding: '8px 15px', transform: 'rotate(-7deg)', marginTop: '-20px' }}>
                 C L A S S I F I E D
               </div>
 
               {/* operative messages, thinline, and button */}
-              <div className="flex flex-col items-center gap-3 mt-12 w-full h-full justify-between">
+              <div className="flex flex-col items-center gap-3 mt-4 w-full h-full justify-between">
                 <div className="flex flex-col items-center gap-3">
                   <p style={{ fontFamily: "'Courier Prime', monospace", fontSize: '16px', color: '#1A1A1A', textAlign: 'center' }}>
                     Your answers were good,
@@ -149,7 +149,7 @@ export default function PreRegistration() {
                     fontSize: '24px',
                   }}
                   onClick={() => router.push('/registration')}
-                  className="text-white px-16 py-2 cursor-pointer tracking-wider absolute bottom-4"
+                  className="text-white px-16 py-2 cursor-pointer tracking-wider absolute bottom-24"
                 >
                   BEGIN REGISTRATION
                 </button>
