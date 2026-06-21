@@ -375,19 +375,19 @@ export default function RegistrationStep2({ initialData }: { initialData?: Step2
                 <p className="text-sm text-[#1A1A1A] tracking-wide">{state.message}</p>
               )}
 
-              <div className="flex justify-center items-center gap-2 mt-[20px] ">
+              <div className="flex gap-2 mt-1 justify-center w-[300px] mx-auto">
                 <button
                   type="button"
                   onClick={() => router.push('/registration')}
-                  className="px-3 py-[0.6rem] border border-[#1A1A1A]/40 text-[#1A1A1A] text-[0.875rem] flex items-center justify-center hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
+                  className="px-3 py-2 border border-[#1A1A1A]/40 text-[#1A1A1A] flex items-center justify-center hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
                 >
-                  <GrPrevious size={16} />
+                  <GrPrevious size={14} />
                 </button>
 
                 <button
                   type="submit"
                   disabled={pending}
-                  className="w-[200px] py-2 bg-[#1A1A1A] text-[#FFFFFF] font-tungsten flex items-center justify-center gap-2 text-[0.875rem] hover:opacity-80 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="flex-1 py-2 bg-[#1A1A1A] text-[#FFFFFF] font-tungsten flex items-center justify-center gap-2 text-sm hover:opacity-80 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {pending ? 'Transmitting...' : 'Next'}
                   <MdOutlineArrowForwardIos size={12} />
