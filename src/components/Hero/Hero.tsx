@@ -3,14 +3,17 @@ import styles from './Hero.module.css'
 //import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from "next/navigation";
+import { useGlobalAudio } from "@/hooks/useGlobalAudio";
 import { useEffect, useRef, useState } from 'react';
-
 
 export default function Hero() { 
   // 1. Create a parent ref and an array of refs for the pins
   const containerRef = useRef<HTMLDivElement>(null);
   const pinRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [points, setPoints] = useState<string>('');
+  const router = useRouter();
+const { playAudio } = useGlobalAudio();
 
   useEffect(() => {
     const calculatePositions = () => {
@@ -61,6 +64,10 @@ export default function Hero() {
     };
   }, []);
 
+  const handleBeginAssessment = async () => {
+  await playAudio();
+  router.push("/Assessment");
+};
 
 
   return (
@@ -102,7 +109,7 @@ export default function Hero() {
               <div className={`${styles.coal} text-[#1A1A1A] text-[24px] mt-[40px] font-courier italic max-w-[700px] `}>But since you are here - the Coal City has something worth stealing. The crew is almost complete. One question.</div>
               <div className={`${styles.coal} text-[#1A1A1A] text-[24px] mt-[20px] font-courier font-bold `}>Can you be trusted?</div>
               {/* <button></button> */}
-              <Link className={`${styles.butt} bg-[#AB1212] mt-[40px] w-[350px] h-[55px] flex justify-center items-center text-[#D2C3AA] text-[28px] font-tungstenC cursor-pointer `} href="/Assessment">
+              <Link className={`${styles.butt} bg-[#AB1212] mt-[40px] w-[350px] h-[55px] flex justify-center items-center text-[#D2C3AA] text-[28px] font-tungstenC cursor-pointer `} href="/Assessment" onClick={handleBeginAssessment}>
                 [ B E G I N &nbsp; A S S E S S M E N  T ]
               </Link>
             </div>

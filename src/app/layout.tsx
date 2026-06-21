@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Courier_Prime } from "next/font/google";
 import PunkKid from "next/font/local"
 import TungstenCondBook from "next/font/local"
+import GlobalAudio from "@/components/GlobalAudio";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -58,7 +59,10 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${courierPrime.variable} ${punkKid.variable} ${TungstenCBook.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <GlobalAudio />
+        {children}
+      </body>
     </html>
   );
 }
