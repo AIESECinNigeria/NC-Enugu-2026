@@ -237,7 +237,7 @@ export default function RegistrationStep3({ initialData }: { initialData?: Step3
 
           <div className="absolute inset-0 flex flex-col p-6 overflow-y-auto">
             <div className="relative flex flex-row items-start justify-center gap-2 mb-6">
-              <h2 className="text-[24px] font-courier font-bold text-[#1A1A1A]">
+              <h2 className="text-[24px] font-courier font-bold text-[#1A1A1A] -ml-8">
                 OPERATIVE WELFARE
               </h2>
               <div className="absolute right-0 flex flex-col items-center">
