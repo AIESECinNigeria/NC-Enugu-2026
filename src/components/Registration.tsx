@@ -146,7 +146,7 @@ export default function RegistrationClient({ initialData }: { initialData?: Step
 
             <div>
               <label htmlFor="birthYear" className="block text-lg font-courier font-bold text-[#1A1A1A] mb-1">
-                What year were you commissioned?
+                When were you commissioned?
               </label>
               <input type="hidden" name="birthYear" value={selectedBirthDate} required />
               <CustomCalendar onDateSelect={setSelectedBirthDate} value={selectedBirthDate} minYear={1900} maxYear={2009} />
