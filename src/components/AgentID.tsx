@@ -125,14 +125,14 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
             priority
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="relative" ref={cardRef} style={{ width: '550px', height: '380px', overflow: 'hidden', borderRadius: '24px' }}>
+            <div className="relative" ref={cardRef} style={{ width: '550px', height: '380px', overflow: 'hidden', borderRadius: '10px' }}>
               <Image
-                src="/images/idimage.png"
+                src="/images/agentid.jpeg"
                 alt="id image"
                 width={550}
                 height={380}
                 priority
-                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
               />
               {/* Bordered content area: text + specialist image */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
@@ -252,14 +252,14 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
 
             {/* Middle: ID card with full layout scaled for mobile */}
             <div className="flex flex-col items-center gap-3 flex-1 justify-center">
-              <div className="relative" ref={mobileCardRef} style={{ width: '300px', height: '210px', overflow: 'hidden' }}>
+              <div className="relative" ref={mobileCardRef} style={{ width: '300px', height: '210px', overflow: 'hidden', borderRadius: '10px' }}>
                 <Image
-                  src="/images/idimage.png"
+                  src="/images/agentid.jpeg"
                   alt="id image"
                   width={300}
                   height={210}
                   priority
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '40px' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '10px' }}
                 />
                 {/* Bordered content area: text + specialist image */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center px-2 py-2" style={{ gap: '6px', width: '100%', height: '100%' }}>
