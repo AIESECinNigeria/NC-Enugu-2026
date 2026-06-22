@@ -73,8 +73,8 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
             clonedElement.style.width = '300px'
             clonedElement.style.height = '210px'
           } else {
-            clonedElement.style.width = '600px'
-            clonedElement.style.height = '500px'
+            clonedElement.style.width = '550px'
+            clonedElement.style.height = '380px'
           }
 
           const canvas = await html2canvas(clonedElement, {
@@ -82,7 +82,7 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
             logging: false,
             useCORS: true,
             allowTaint: true,
-            backgroundColor: null,
+            backgroundColor: '#FDF5E6',
           })
 
           const link = document.createElement('a')
@@ -112,26 +112,27 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
         backgroundPosition: 'center',
       }}
     >
-      <div className="hidden md:flex flex-col items-start justify-center relative z-10 gap-4 pl-12">
-        <div className="relative w-fit pt-12">
+      <div className="hidden md:flex flex-col items-center justify-center relative z-10 gap-4">
+        <div className="relative w-fit">
           <p className="absolute top-4 left-4 text-sm font-courier italic text-[#FDFDFD] bg-[#1A1A1A] px-3 py-2">
             YOUR OPERATIVE BADGE HAS BEEN CLEARED FOR TRANSMISSION
           </p>
           <Image
             src="/images/confirmationbg.png"
             alt="confirmation"
-            width={1000}
-            height={700}
+            width={1100}
+            height={800}
             priority
           />
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="relative" ref={cardRef}>
+            <div className="relative" ref={cardRef} style={{ width: '550px', height: '380px', overflow: 'hidden', borderRadius: '24px' }}>
               <Image
                 src="/images/idimage.png"
                 alt="id image"
-                width={600}
-                height={500}
+                width={550}
+                height={380}
                 priority
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '24px' }}
               />
               {/* Bordered content area: text + specialist image */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
@@ -197,7 +198,7 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
 
         {/* Text below card image */}
         <div className="w-full flex justify-center">
-          <p className="mt-6 text-center" style={{ fontFamily: "'Courier Prime', monospace", fontStyle: 'italic', fontSize: '20px', color: '#CE0000', fontWeight: 700 }}>
+          <p className="mt-12 text-center" style={{ fontFamily: "'Courier Prime', monospace", fontStyle: 'italic', fontSize: '20px', color: '#CE0000', fontWeight: 700 }}>
             Show this card to verify your <br/> clearance with fellow field agents
           </p>
         </div>
