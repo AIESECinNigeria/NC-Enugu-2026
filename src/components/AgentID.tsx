@@ -195,6 +195,12 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
               )}
             </div>
 
+        {/* Text below card image */}
+        <div className="w-full flex justify-center">
+          <p className="mt-6 text-center" style={{ fontFamily: "'Courier Prime', monospace", fontStyle: 'italic', fontSize: '20px', color: '#CE0000', fontWeight: 700 }}>
+            Show this card to verify your <br/> clearance with fellow field agents
+          </p>
+        </div>
           </div>
           <div className="absolute top-0 right-0">
             <Image
@@ -206,14 +212,6 @@ export default function AgentID({ codename, lc, role, crewName, clearance, clear
               priority
             />
           </div>
-
-        </div>
-
-        {/* Text below card image */}
-        <div className="w-full flex justify-center">
-          <p className="mt-6 text-center" style={{ fontFamily: "'Courier Prime', monospace", fontStyle: 'italic', fontSize: '20px', color: '#CE0000', fontWeight: 700 }}>
-            Show this card to verify your <br/> clearance with fellow field agents
-          </p>
         </div>
       </div>
 
